@@ -6,7 +6,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import LoginScreen from "./screens/LoginScreen";
 import SignupScreen from "./screens/SignupScreen";
-import WelcomeScreen from "./screens/WelcomeScreen";
+import ProfileScreen from "./screens/ProfileScreen";
+import CreateHuntScreen from "./screens/CreateHuntScreen";
+import PicPlacesScreen from "./screens/PicPlacesScreen";
+
 import AuthContextProvider, { AuthContext } from "./store/AuthContext";
 import IconButton from "./components/ui/IconButton";
 import { Colors } from "./constants/styles";
@@ -46,7 +49,9 @@ const AuthenticatedStack = () => {
         ),
       }}
     >
-      <Stack.Screen name="Welcome" component={WelcomeScreen} />
+      <Stack.Screen name="Profile" component={ProfileScreen} />
+      <Stack.Screen name="Create Hunt" component={CreateHuntScreen} />
+      <Stack.Screen name="Pic Places" component={PicPlacesScreen} />
     </Stack.Navigator>
   );
 };
