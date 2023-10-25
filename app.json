@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "7.Authentication",
-    "slug": "7.Authentication",
+    "name": "historyhunt",
+    "slug": "Historyhunt",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -25,6 +25,26 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+  
+    
+      "plugins": [
+        [
+          "expo-camera",
+          {
+            "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera."
+          }
+        ],
+        [
+          "expo-location",
+          {
+            "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
+          }
+        ]
+      ]
+    
   }
 }
+
+
+

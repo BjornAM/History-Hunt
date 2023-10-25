@@ -8,7 +8,7 @@ function CreateHuntScreen() {
 
   const navigation = useNavigation();
   const handleContinuePress = () => {
-    navigation.navigate("Pic Places");
+    navigation.navigate("Add Place");
   };
 
   return (

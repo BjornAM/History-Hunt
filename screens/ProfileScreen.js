@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { StyleSheet, Text, View, Pressable, Image, Button } from "react-native";
 import { AuthContext } from "../store/AuthContext";
 
-import Trophys from "../components/MyIcons";
+import Trophys from "../components/ui/TrophyIcon";
 import { useNavigation } from "@react-navigation/native";
 
 const ProfileScreen = () => {
@@ -24,6 +24,17 @@ const ProfileScreen = () => {
   const handleCreateHuntPress = () => {
     navigation.navigate("Create Hunt");
   };
+  const handleActiveHuntsPress = () => {
+    navigation.navigate("Active Hunts");
+  };
+
+  const handlePlannedHuntsPress = () => {
+    navigation.navigate("Planned Hunts");
+  };
+
+  const handleAllPlacesPress = () => {
+    navigation.navigate("All Places");
+  };
 
   return (
     <View style={styles.container}>
@@ -32,17 +43,23 @@ const ProfileScreen = () => {
           source={require("../images/bjorn.jpg")}
           style={styles.profileImage}
         />
-        {/* https://i.postimg.cc/wTrknr04/bjorn.jpg */}
+
         <Text>Björn</Text>
+        <Button
+          style={styles.button}
+          title="All Places"
+          onPress={() => handleAllPlacesPress()}
+        />
       </View>
-      <Text style={styles.text}>Active Hunts:</Text>
-      <Pressable>
+      <Pressable onPress={() => handleActiveHuntsPress()}>
+        <Text style={styles.text}>Active Hunts:</Text>
         <Text>Bygga funktion för Hunts som andra bjuder in till</Text>
         <Text>Hunt 2</Text>
         <Text>Hunt 3</Text>
       </Pressable>
-      <Text style={styles.text}>Planned Hunts</Text>
-      <Pressable onPress={() => console.log("Pressed")}>
+
+      <Pressable onPress={() => handlePlannedHuntsPress()}>
+        <Text style={styles.text}>Planned Hunts:</Text>
         <Text>Här ska byggas funktion för egengjorda Hunts att synas</Text>
         <Text>Hunt B</Text>
         <Text>Hunt C</Text>
@@ -55,7 +72,7 @@ const ProfileScreen = () => {
       <View style={styles.medalsContainer}>
         <Text style={styles.text}>Medals:</Text>
         <Trophys />
-        {/* Bygga funktion för att trophys ska bli ifyllda när Hunts är avklarade. "trophy-filled" */}
+        {/* Bygga funktion för att trophys ska bli ifyllda när Hunts är avklarade. "trophy-filled" Ionicons har både tomma och ifyllda ikoner*/}
       </View>
     </View>
   );

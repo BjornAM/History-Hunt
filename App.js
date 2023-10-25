@@ -8,11 +8,14 @@ import LoginScreen from "./screens/LoginScreen";
 import SignupScreen from "./screens/SignupScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import CreateHuntScreen from "./screens/CreateHuntScreen";
-import PicPlacesScreen from "./screens/PicPlacesScreen";
+import AddPlaceScreen from "./screens/AddPlaceScreen";
+import ActiveHuntsScreen from "./screens/ActiveHuntsScreen";
+import PlannedHuntsScreen from "./screens/PlannedHuntsScreen";
+import AllPlacesScreen from "./screens/AllPlacesScreen";
 
 import AuthContextProvider, { AuthContext } from "./store/AuthContext";
 import IconButton from "./components/ui/IconButton";
-import { Colors } from "./constants/styles";
+import AntDesignButton from "./components/ui/AntDesignButton";
 
 const Stack = createNativeStackNavigator();
 
@@ -20,9 +23,9 @@ const AuthStack = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerStyle: { backgroundColor: Colors.primary500 },
+        headerStyle: { backgroundColor: "#3489eb" },
         headerTintColor: "white",
-        contentStyle: { backgroundColor: Colors.primary100 },
+        contentStyle: { backgroundColor: "#cae6e1" },
       }}
     >
       <Stack.Screen name="Login" component={LoginScreen} />
@@ -36,22 +39,43 @@ const AuthenticatedStack = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerStyle: { backgroundColor: Colors.primary500 },
+        headerStyle: { backgroundColor: "#3489eb" },
         headerTintColor: "white",
-        contentStyle: { backgroundColor: Colors.primary100 },
-        headerRight: ({ tintColor }) => (
-          <IconButton
-            icon="exit"
-            color={tintColor}
-            size={24}
-            onPress={authCtx.logout}
-          />
-        ),
+        contentStyle: { backgroundColor: "#cae6e1" },
       }}
     >
-      <Stack.Screen name="Profile" component={ProfileScreen} />
+      <Stack.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="exit"
+              color={tintColor}
+              size={24}
+              onPress={authCtx.logout}
+            />
+          ),
+        }}
+      />
       <Stack.Screen name="Create Hunt" component={CreateHuntScreen} />
-      <Stack.Screen name="Pic Places" component={PicPlacesScreen} />
+      <Stack.Screen name="Add Place" component={AddPlaceScreen} />
+      <Stack.Screen name="Active Hunts" component={ActiveHuntsScreen} />
+      <Stack.Screen name="Planned Hunts" component={PlannedHuntsScreen} />
+      <Stack.Screen
+        name="All Places"
+        component={AllPlacesScreen}
+        options={({ navigation }) => ({
+          headerRight: ({ tintColor }) => (
+            <AntDesignButton
+              icon="plus"
+              size={24}
+              color={tintColor}
+              pressHandler={() => navigation.navigate("Add Place")}
+            />
+          ),
+        })}
+      />
     </Stack.Navigator>
   );
 };
