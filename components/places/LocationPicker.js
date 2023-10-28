@@ -5,10 +5,12 @@ import * as Location from "expo-location";
 import OutlinedButton from "../../components/ui/OutlinedButton";
 import LoadingOverlay from "../ui/LoadingOverlay";
 import { createLocationUrl } from "../../util/location";
+import { useNavigation } from "@react-navigation/native";
 
 const LocationPicker = () => {
   const [pickedLocation, setPickedLocation] = useState();
   const [permission, requestPermission] = Location.useForegroundPermissions();
+  const navigation = useNavigation();
 
   if (!permission) {
     return (
@@ -35,7 +37,9 @@ const LocationPicker = () => {
     });
   };
 
-  const pickOnMapHandler = () => {};
+  const pickOnMapHandler = () => {
+    navigation.navigate("Map");
+  };
 
   let previewContent = <Text>No picked location yet.</Text>;
   if (pickedLocation) {

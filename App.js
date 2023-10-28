@@ -12,6 +12,7 @@ import AddPlaceScreen from "./screens/AddPlaceScreen";
 import ActiveHuntsScreen from "./screens/ActiveHuntsScreen";
 import PlannedHuntsScreen from "./screens/PlannedHuntsScreen";
 import AllPlacesScreen from "./screens/AllPlacesScreen";
+import MapScreen from "./screens/MapScreen";
 
 import AuthContextProvider, { AuthContext } from "./store/AuthContext";
 import IconButton from "./components/ui/IconButton";
@@ -76,6 +77,7 @@ const AuthenticatedStack = () => {
           ),
         })}
       />
+      <Stack.Screen name="Map" component={MapScreen} />
     </Stack.Navigator>
   );
 };
