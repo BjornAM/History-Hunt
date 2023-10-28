@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import LoadingOverlay from "../ui/LoadingOverlay";
 import IconButton from "../ui/IconButton";
 
-const ImagePicker = () => {
+const ImagePicker = ({ imageHandler }) => {
   const cameraRef = useRef();
   const [photo, setPhoto] = useState();
   const [cameraPermission, requestCameraPermission] =
@@ -30,19 +30,6 @@ const ImagePicker = () => {
     );
   }
 
-  // const getCameraSettings = async (camera) => {
-  //   const aspectRatios = await camera.getSupportedRatiosAsync();
-  //   let aspectRatio = null;
-  //   if (aspectRatios?.length > 0) {
-  //     aspectRatios.forEach((r) => console.log("ratio", r));
-  //     aspectRatio = aspectRatios[0];
-  //   }
-  //   const pictureSizes = await camera.getAvailablePictureSizesAsync(
-  //     aspectRatio
-  //   );
-  //   pictureSizes.forEach((s) => console.log("size", s));
-  // };
-
   const takePicture = async () => {
     if (cameraRef.current) {
       await getCameraSettings(cameraRef.current);
@@ -50,8 +37,8 @@ const ImagePicker = () => {
         quality: 0.7,
         exif: false,
       });
-      console.log(takenPhoto);
       setPhoto(takenPhoto);
+      imageHandler(takenPhoto.uri);
     }
   };
 
@@ -61,7 +48,7 @@ const ImagePicker = () => {
         icon="camera"
         size={32}
         color="white"
-        pressHandler={takePicture}
+        pressHandler={takePicture.uri}
       />
     </Camera>
   );

@@ -1,16 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { View, StyleSheet, Image, Text } from "react-native";
 import * as Location from "expo-location";
 
 import OutlinedButton from "../../components/ui/OutlinedButton";
 import LoadingOverlay from "../ui/LoadingOverlay";
 import { createLocationUrl } from "../../util/location";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
-const LocationPicker = () => {
+const LocationPicker = ({ locationHandler }) => {
   const [pickedLocation, setPickedLocation] = useState();
   const [permission, requestPermission] = Location.useForegroundPermissions();
   const navigation = useNavigation();
+  const route = useRoute();
+
+  useEffect(() => {
+    if (route.params) {
+      setPickedLocation({
+        lat: route.params.latitude,
+        lng: route.params.longitude,
+      });
+    }
+  }, [route]);
+
+  useEffect(() => {
+    locationHandler(pickedLocation);
+  }, [pickedLocation, locationHandler]);
 
   if (!permission) {
     return (
