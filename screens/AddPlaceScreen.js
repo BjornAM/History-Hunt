@@ -1,11 +1,10 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
 import PlaceForm from "../components/places/PlaceForm";
 
-function AddPlaceScreen() {
-  return <PlaceForm />;
-}
-
-const style = StyleSheet.create({});
+const AddPlaceScreen = ({ navigation }) => {
+  const addPlaceHandler = (place) => {
+    navigation.navigate("All Places", { place });
+  };
+  return <PlaceForm addPlaceHandler={addPlaceHandler} />;
+};
 
 export default AddPlaceScreen;

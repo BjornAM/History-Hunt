@@ -1,15 +1,23 @@
 import { useState, useCallback } from "react";
-import { Text, View, TextInput, ScrollView, StyleSheet } from "react-native";
-import ImagePicker from "./ImagePicker";
+import {
+  Text,
+  View,
+  TextInput,
+  ScrollView,
+  StyleSheet,
+  Alert,
+} from "react-native";
+import ImagePicker from "../camera/ImagePicker.js";
 import LocationPicker from "./LocationPicker";
+import Place from "../../models/place.js";
 import Button2 from "../ui/Button2.js";
 
-const PlaceForm = () => {
-  const [title, setTitle] = useState();
+const PlaceForm = ({ addPlaceHandler }) => {
+  const [title, setTitle] = useState("");
   const [image, setImage] = useState();
   const [location, setLocation] = useState();
 
-  const changeTitleHandler = (text) => {
+  const titleHandler = (text) => {
     setTitle(text);
   };
 
@@ -17,12 +25,25 @@ const PlaceForm = () => {
     setImage(uri);
   };
 
-  const locationHandler = useCallback((coords) => {
-    setLocation(coords);
+  const locationHandler = useCallback((locationInfo) => {
+    console.log("Received locationInfo:", locationInfo);
+    try {
+      setLocation(locationInfo);
+    } catch (error) {
+      console.error("Error setting location:", error);
+    }
   }, []);
 
   const submitHandler = () => {
-    console.log(title, location);
+    console.log("Title:", title);
+    console.log("Image:", image);
+    console.log("Location:", location);
+
+    const place = new Place(title, image, location);
+    addPlaceHandler(place);
+    setTitle("");
+    setImage();
+    setLocation();
   };
 
   return (
@@ -31,7 +52,7 @@ const PlaceForm = () => {
         <Text style={styles.label}>Title</Text>
         <TextInput
           style={styles.input}
-          onChangeText={changeTitleHandler}
+          onChangeText={titleHandler}
           value={title}
         />
 

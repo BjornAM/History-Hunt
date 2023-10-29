@@ -34,6 +34,7 @@ const ProfileScreen = () => {
 
   const handleAllPlacesPress = () => {
     navigation.navigate("All Places");
+    console.log("pressed button", handleAllPlacesPress);
   };
 
   return (

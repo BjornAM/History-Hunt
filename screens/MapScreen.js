@@ -11,6 +11,9 @@ const MapScreen = ({ navigation }) => {
       Alert.alert("No location selected!");
       return;
     }
+
+    console.log("Picked Location:", pickedLocation);
+
     navigation.navigate("Add Place", pickedLocation);
   }, [navigation, pickedLocation]);
 

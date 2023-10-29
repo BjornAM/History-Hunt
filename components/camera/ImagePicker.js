@@ -30,16 +30,18 @@ const ImagePicker = ({ imageHandler }) => {
     );
   }
 
+  const handleCameraIconPress = () => {
+    console.log("Kamera-ikonen trycktes.");
+    takePicture();
+  };
+
   const takePicture = async () => {
-    if (cameraRef.current) {
-      await getCameraSettings(cameraRef.current);
-      const takenPhoto = await cameraRef.current.takePictureAsync({
-        quality: 0.7,
-        exif: false,
-      });
-      setPhoto(takenPhoto);
-      imageHandler(takenPhoto.uri);
-    }
+    const takenPhoto = await cameraRef.current.takePictureAsync({
+      quality: 0.7,
+      exif: false,
+    });
+    setPhoto(takenPhoto);
+    imageHandler(takenPhoto.uri);
   };
 
   let preview = (
@@ -48,7 +50,7 @@ const ImagePicker = ({ imageHandler }) => {
         icon="camera"
         size={32}
         color="white"
-        pressHandler={takePicture.uri}
+        onPress={handleCameraIconPress} //{takePicture.uri}
       />
     </Camera>
   );
@@ -56,7 +58,7 @@ const ImagePicker = ({ imageHandler }) => {
   if (photo) {
     preview = (
       <View style={styles.preview}>
-        <Image style={styles.photo} source={{ uri: photo.uri }} />;
+        <Image style={styles.photo} source={{ uri: photo.uri }} />
       </View>
     );
   }

@@ -1,4 +1,5 @@
 import { FlatList, View, Text, StyleSheet } from "react-native";
+import PlaceItem from "../places/PlaceItem.js";
 
 const PlacesList = ({ places }) => {
   if (!places || places < 1) {
@@ -10,6 +11,7 @@ const PlacesList = ({ places }) => {
   }
   return (
     <FlatList
+      style={styles.list}
       data={places}
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => <PlaceItem place={item} />}
@@ -18,6 +20,9 @@ const PlacesList = ({ places }) => {
 };
 
 const styles = StyleSheet.create({
+  list: {
+    margin: 24,
+  },
   fallbackContainer: {
     justifyContent: "center",
     alignItems: "center",

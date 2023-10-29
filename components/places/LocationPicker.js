@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { View, StyleSheet, Image, Text } from "react-native";
+import { View, StyleSheet, Image, Text, Button } from "react-native";
 import * as Location from "expo-location";
 
 import OutlinedButton from "../../components/ui/OutlinedButton";
 import LoadingOverlay from "../ui/LoadingOverlay";
-import { createLocationUrl } from "../../util/location";
+import { createLocationUrl, getReadableAddress } from "../../util/location";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
 const LocationPicker = ({ locationHandler }) => {
@@ -23,7 +23,16 @@ const LocationPicker = ({ locationHandler }) => {
   }, [route]);
 
   useEffect(() => {
-    locationHandler(pickedLocation);
+    const getAddressOfLocation = async () => {
+      if (pickedLocation) {
+        const address = await getReadableAddress(pickedLocation);
+        locationHandler({ ...pickedLocation, address });
+        if (address) {
+          console.log("Address:", address);
+        }
+      }
+    };
+    getAddressOfLocation();
   }, [pickedLocation, locationHandler]);
 
   if (!permission) {
@@ -43,7 +52,7 @@ const LocationPicker = ({ locationHandler }) => {
     );
   }
 
-  const getLocationHandler = async () => {
+  const getLocation = async () => {
     const location = await Location.getCurrentPositionAsync();
     setPickedLocation({
       lat: location.coords.latitude,
@@ -69,7 +78,7 @@ const LocationPicker = ({ locationHandler }) => {
     <View>
       <View style={styles.preview}>{previewContent}</View>
       <View style={styles.buttonsContainer}>
-        <OutlinedButton icon="location" pressHandler={getLocationHandler}>
+        <OutlinedButton icon="location" pressHandler={getLocation}>
           Locate user
         </OutlinedButton>
         <OutlinedButton icon="map" pressHandler={pickOnMapHandler}>
