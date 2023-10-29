@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useContext } from "react";
 import { AuthContext } from "../store/AuthContext";
+require("dotenv").config();
 
-export const rootUrl =
-  "https://historyhunt-ac39f-default-rtdb.europe-west1.firebasedatabase.app/";
+ROOT_URL = process.env.ROOT_URL;
 
 export const storeData = () => {
   axios.post(`${rootUrl}/data.json, value`);
