@@ -8,10 +8,12 @@ import LoginScreen from "./screens/LoginScreen";
 import SignupScreen from "./screens/SignupScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import CreateHuntScreen from "./screens/CreateHuntScreen";
+import PicHuntScreen from "./screens/PicHuntScreen";
+import AddHuntScreen from "./screens/AddHuntScreen";
 import AddPlaceScreen from "./screens/AddPlaceScreen";
 import ActiveHuntsScreen from "./screens/ActiveHuntsScreen";
 import PlannedHuntsScreen from "./screens/PlannedHuntsScreen";
-import AllPlacesScreen from "./screens/AllPlacesScreen";
+import HuntResultsScreen from "./screens/HuntResultsScreen";
 import MapScreen from "./screens/MapScreen";
 
 import AuthContextProvider, { AuthContext } from "./store/AuthContext";
@@ -60,12 +62,14 @@ const AuthenticatedStack = () => {
         }}
       />
       <Stack.Screen name="Create Hunt" component={CreateHuntScreen} />
+      <Stack.Screen name="Plan the Hunt" component={PicHuntScreen} />
+      <Stack.Screen name="Planned Hunts" component={PlannedHuntsScreen} />
+      <Stack.Screen name="Add Hunt" component={AddHuntScreen} />
       <Stack.Screen name="Add Place" component={AddPlaceScreen} />
       <Stack.Screen name="Active Hunts" component={ActiveHuntsScreen} />
-      <Stack.Screen name="Planned Hunts" component={PlannedHuntsScreen} />
       <Stack.Screen
-        name="All Places"
-        component={AllPlacesScreen}
+        name="Hunt Results"
+        component={HuntResultsScreen}
         options={({ navigation }) => ({
           headerRight: ({ tintColor }) => (
             <AntDesignButton

@@ -29,12 +29,7 @@ const ProfileScreen = () => {
   };
 
   const handlePlannedHuntsPress = () => {
-    navigation.navigate("Planned Hunts");
-  };
-
-  const handleAllPlacesPress = () => {
     navigation.navigate("All Places");
-    console.log("pressed button", handleAllPlacesPress);
   };
 
   return (
@@ -46,11 +41,6 @@ const ProfileScreen = () => {
         />
 
         <Text>Björn</Text>
-        <Button
-          style={styles.button}
-          title="All Places"
-          onPress={() => handleAllPlacesPress()}
-        />
       </View>
       <Pressable onPress={() => handleActiveHuntsPress()}>
         <Text style={styles.text}>Active Hunts:</Text>

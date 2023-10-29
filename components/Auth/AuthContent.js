@@ -4,7 +4,6 @@ import { useNavigation } from "@react-navigation/native";
 
 import FlatButton from "../ui/FlatButton";
 import AuthForm from "./AuthForm";
-import { Colors } from "../../constants/styles";
 
 const AuthContent = ({ isLogin, onAuthenticate }) => {
   const [credentialsInvalid, setCredentialsInvalid] = useState({

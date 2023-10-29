@@ -8,7 +8,7 @@ import {
   Alert,
 } from "react-native";
 import ImagePicker from "../camera/ImagePicker.js";
-import LocationPicker from "./LocationPicker";
+import LocationPickerMap from "./LocationPickerMap.js";
 import Place from "../../models/place.js";
 import Button2 from "../ui/Button2.js";
 
@@ -26,7 +26,6 @@ const PlaceForm = ({ addPlaceHandler }) => {
   };
 
   const locationHandler = useCallback((locationInfo) => {
-    console.log("Received locationInfo:", locationInfo);
     try {
       setLocation(locationInfo);
     } catch (error) {
@@ -42,8 +41,8 @@ const PlaceForm = ({ addPlaceHandler }) => {
     const place = new Place(title, image, location);
     addPlaceHandler(place);
     setTitle("");
-    setImage();
-    setLocation();
+    setImage(null);
+    setLocation(null);
   };
 
   return (
@@ -57,7 +56,7 @@ const PlaceForm = ({ addPlaceHandler }) => {
         />
 
         <ImagePicker imageHandler={imageHandler} />
-        <LocationPicker locationHandler={locationHandler} />
+        <LocationPickerMap locationHandler={locationHandler} />
         <Button2 pressHandler={submitHandler}>Save</Button2>
       </View>
     </ScrollView>

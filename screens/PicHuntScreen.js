@@ -3,8 +3,16 @@ import { Alert, StyleSheet } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import AntDesignButton from "../components/ui/AntDesignButton";
 
-const MapScreen = ({ navigation }) => {
+const PicHuntScreen = ({ navigation }) => {
   const [pickedLocation, setPickedLocation] = useState();
+  const [markers, setMarkers] = useState([]);
+  const initialRegion = {
+    latitude: 57.70887,
+    longitude: 11.97456,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
+  };
+  const firstMarker = markers[0];
 
   const savePickedLocation = useCallback(() => {
     if (!pickedLocation) {
@@ -12,7 +20,7 @@ const MapScreen = ({ navigation }) => {
       return;
     }
 
-    navigation.navigate("Add Place", pickedLocation);
+    navigation.navigate("Add Hunt", pickedLocation);
   }, [navigation, pickedLocation]);
 
   useLayoutEffect(() => {
@@ -26,19 +34,22 @@ const MapScreen = ({ navigation }) => {
         />
       ),
     });
-  }, [navigation, savePickedLocation]);
-
-  const initialRegion = {
-    latitude: 57.70887,
-    longitude: 11.97456,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
-  };
+  }, [navigation, savePickedLocation, markers]);
 
   const pressHandler = (event) => {
     const latitude = event.nativeEvent.coordinate.latitude;
     const longitude = event.nativeEvent.coordinate.longitude;
-    setPickedLocation({ latitude, longitude });
+    const newMarker = {
+      id: markers.length + 1,
+      title: "New Marker",
+      coordinate: { latitude, longitude },
+    };
+    if (markers.length === 0) {
+      setMarkers([newMarker]);
+      setPickedLocation({ latitude, longitude });
+    } else {
+      setMarkers([...markers, newMarker]);
+    }
   };
 
   return (
@@ -47,6 +58,13 @@ const MapScreen = ({ navigation }) => {
       initialRegion={initialRegion}
       onPress={pressHandler}
     >
+      {markers.map((marker) => (
+        <Marker
+          key={marker.id}
+          coordinate={marker.coordinate}
+          title={marker.title}
+        />
+      ))}
       {pickedLocation && (
         <Marker coordinate={pickedLocation} title="Your picked location" />
       )}
@@ -60,4 +78,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MapScreen;
+export default PicHuntScreen;

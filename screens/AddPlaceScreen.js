@@ -2,7 +2,7 @@ import PlaceForm from "../components/places/PlaceForm";
 
 const AddPlaceScreen = ({ navigation }) => {
   const addPlaceHandler = (place) => {
-    navigation.navigate("All Places", { place });
+    navigation.navigate("Hunt Results", { place });
   };
   return <PlaceForm addPlaceHandler={addPlaceHandler} />;
 };

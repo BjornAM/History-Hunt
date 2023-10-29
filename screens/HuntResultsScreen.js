@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import PlacesList from "../components/places/PlacesList";
 import { useIsFocused } from "@react-navigation/core";
 
-const AllPlacesScreen = ({ route }) => {
+const HuntResultsScreen = ({ route }) => {
   const [places, setPlaces] = useState([]);
   const isFocused = useIsFocused();
 
@@ -17,4 +17,4 @@ const AllPlacesScreen = ({ route }) => {
   return <PlacesList places={places} />;
 };
 
-export default AllPlacesScreen;
+export default HuntResultsScreen;

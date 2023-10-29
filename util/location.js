@@ -7,7 +7,7 @@ export const createLocationUrl = ({ lat, lng }) => {
 
 export const getReadableAddress = async ({ lat, lng }) => {
   const resp = await fetch(
-    `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${GOOGLE_API_KEY}`
+    `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${GOOGLE_API_KEY}&enable_address_descriptor=true`
   );
   if (!resp.ok) {
     throw new Error("Could not fetch address!");

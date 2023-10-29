@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { View, StyleSheet, Image, Text, Button } from "react-native";
 import * as Location from "expo-location";
 
-import OutlinedButton from "../../components/ui/OutlinedButton";
+import OutlinedButton from "../ui/OutlinedButton";
 import LoadingOverlay from "../ui/LoadingOverlay";
 import { createLocationUrl, getReadableAddress } from "../../util/location";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
-const LocationPicker = ({ locationHandler }) => {
+const LocationPickerMap = ({ locationHandler }) => {
   const [pickedLocation, setPickedLocation] = useState();
   const [permission, requestPermission] = Location.useForegroundPermissions();
   const navigation = useNavigation();
@@ -113,4 +113,4 @@ const styles = StyleSheet.create({
   // },
 });
 
-export default LocationPicker;
+export default LocationPickerMap;

@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { View, Text, StyleSheet, TextInput, Button } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 
-function CreateHuntScreen() {
+const CreateHuntScreen = ({ navigation }) => {
   const [huntLengthInput, setHuntLengthInput] = useState("");
   const [huntNameInput, setHuntNameInput] = useState("");
 
-  const navigation = useNavigation();
   const handleContinuePress = () => {
-    navigation.navigate("Add Place");
+    navigation.navigate("Plan the Hunt", {
+      huntLengthInput,
+      huntNameInput,
+    });
   };
 
   return (
@@ -31,7 +32,7 @@ function CreateHuntScreen() {
       <Button title="Continue" onPress={() => handleContinuePress()} />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
