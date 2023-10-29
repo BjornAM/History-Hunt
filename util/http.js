@@ -1,7 +1,7 @@
 import axios from "axios";
-require("dotenv").config();
+import Config from "react-native-config";
 
-API_KEY = process.env.API_KEY;
+API_KEY = Config.env.API_KEY;
 
 const authenticate = async (mode, email, password) => {
   const resp = await axios.post(

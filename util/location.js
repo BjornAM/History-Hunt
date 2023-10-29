@@ -1,6 +1,6 @@
-require("dotenv").config();
+import Config from "react-native-config";
 
-GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
+GOOGLE_API_KEY = Config.GOOGLE_API_KEY;
 
 export const createLocationUrl = ({ lat, lng }) => {
   const url = `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lng}&zoom=13&size=600x300&maptype=roadmap

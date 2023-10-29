@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useContext } from "react";
 import { AuthContext } from "../store/AuthContext";
-require("dotenv").config();
+import Config from "react-native-config";
 
-ROOT_URL = process.env.ROOT_URL;
+ROOT_URL = Config.ROOT_URL;
 
 export const storeData = () => {
   axios.post(`${rootUrl}/data.json, value`);
