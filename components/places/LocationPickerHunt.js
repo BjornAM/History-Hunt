@@ -21,18 +21,18 @@ const LocationPickerHunt = ({ locationHandler }) => {
     }
   }, [route]);
 
-  useEffect(() => {
-    const getAddressOfLocation = async () => {
-      if (pickedLocation) {
-        const address = await getReadableAddress(pickedLocation);
-        locationHandler({ ...pickedLocation, address });
-        if (address) {
-          console.log("Address:", address);
-        }
-      }
-    };
-    getAddressOfLocation();
-  }, [pickedLocation, locationHandler]);
+  // useEffect(() => {
+  //   const getAddressOfLocation = async () => {
+  //     if (pickedLocation) {
+  //       const address = await getReadableAddress(pickedLocation);
+  //       locationHandler({ ...pickedLocation, address });
+  //       if (address) {
+  //         console.log("Address:", address);
+  //       }
+  //     }
+  //   };
+  //   getAddressOfLocation();
+  // }, [pickedLocation, locationHandler]);
 
   if (!permission) {
     return (
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   preview: {
     width: "100%",
     height: 175,
-    backgroundColor: "beige",
+    // backgroundColor: "beige",
     marginTop: 5,
     justifyContent: "center",
     alignItems: "center",

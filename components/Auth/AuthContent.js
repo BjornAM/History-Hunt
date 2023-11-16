@@ -23,7 +23,8 @@ const AuthContent = ({ isLogin, onAuthenticate }) => {
   };
 
   const submitHandler = (credentials) => {
-    let { email, confirmEmail, password, confirmPassword } = credentials;
+    let { username, email, confirmEmail, password, confirmPassword } =
+      credentials;
 
     email = email.trim();
     password = password.trim();
@@ -47,7 +48,7 @@ const AuthContent = ({ isLogin, onAuthenticate }) => {
       });
       return;
     }
-    onAuthenticate({ email, password });
+    onAuthenticate({ username, email, password });
   };
 
   return (

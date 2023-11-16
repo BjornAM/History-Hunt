@@ -11,7 +11,7 @@ const PlaceItem = ({ place, pressHandler }) => {
         <Image style={styles.image} source={{ uri: place.imageUri }} />
         <View style={styles.info}>
           <Text style={styles.title}>{place.title}</Text>
-          <Text style={styles.address}>{place.address}</Text>
+          {/* <Text style={styles.address}>{place.address}</Text> */}
         </View>
       </View>
     </Pressable>

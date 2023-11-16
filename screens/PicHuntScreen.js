@@ -20,7 +20,7 @@ const PicHuntScreen = ({ navigation }) => {
       return;
     }
 
-    navigation.navigate("Add Hunt", pickedLocation);
+    navigation.navigate("Add Place", pickedLocation);
   }, [navigation, pickedLocation]);
 
   useLayoutEffect(() => {
@@ -58,13 +58,6 @@ const PicHuntScreen = ({ navigation }) => {
       initialRegion={initialRegion}
       onPress={pressHandler}
     >
-      {markers.map((marker) => (
-        <Marker
-          key={marker.id}
-          coordinate={marker.coordinate}
-          title={marker.title}
-        />
-      ))}
       {pickedLocation && (
         <Marker coordinate={pickedLocation} title="Your picked location" />
       )}

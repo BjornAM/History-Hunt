@@ -1,46 +1,28 @@
-import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { StyleSheet, Text, View, Pressable, Image, Button } from "react-native";
 import { AuthContext } from "../store/AuthContext";
 
 import Trophys from "../components/ui/TrophyIcon";
-import { useNavigation } from "@react-navigation/native";
+import IconButton from "../components/ui/IconButton";
 
-const ProfileScreen = () => {
+const ProfileScreen = ({ navigation }) => {
   const [message, setMessage] = useState(null);
+
   const authCtx = useContext(AuthContext);
-  useEffect(() => {
-    axios
-      .get(
-        "https://historyhunt-ac39f-default-rtdb.europe-west1.firebasedatabase.app/test.json?auth=" +
-          authCtx.token
-      )
-      .then((resp) => {
-        setMessage(resp.data);
-      });
-  }, []);
+  const { gameName, activeHunts } = authCtx;
 
-  const navigation = useNavigation();
-  const handleCreateHuntPress = () => {
-    navigation.navigate("Create Hunt");
-  };
-  const handleActiveHuntsPress = () => {
-    navigation.navigate("Active Hunts");
-  };
-
-  const handlePlannedHuntsPress = () => {
-    navigation.navigate("All Places");
-  };
+  editProfilePicHandler = () => {};
 
   return (
     <View style={styles.container}>
-      <View style={styles.profileImageContainer}>
+      <View style={styles.profileContainer}>
         <Image
           source={require("../images/bjorn.jpg")}
           style={styles.profileImage}
         />
+        <IconButton icon={"pencil"} size={12} onPress={editProfilePicHandler} />
 
-        <Text>Björn</Text>
+        <Text style={styles.gameName}>{gameName}</Text>
       </View>
       <Pressable onPress={() => handleActiveHuntsPress()}>
         <Text style={styles.text}>Active Hunts:</Text>
@@ -73,13 +55,16 @@ const styles = StyleSheet.create({
   container: {
     margin: 10,
   },
-  profileImageContainer: {
+  profileContainer: {
     marginBottom: 50,
   },
   profileImage: {
     height: 150,
     width: 150,
     borderRadius: 75,
+  },
+  gameName: {
+    fontSize: 15,
   },
   medalsContainer: {
     marginTop: 50,
