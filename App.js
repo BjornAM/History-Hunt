@@ -15,6 +15,7 @@ import ActiveHuntsScreen from "./screens/ActiveHuntsScreen";
 import PlannedHuntsScreen from "./screens/PlannedHuntsScreen";
 import HuntResultsScreen from "./screens/HuntResultsScreen";
 import MapScreen from "./screens/MapScreen";
+import GameScreen from "./screens/GameScreen";
 
 import AuthContextProvider, { AuthContext } from "./store/AuthContext";
 import IconButton from "./components/ui/IconButton";
@@ -67,6 +68,8 @@ const AuthenticatedStack = () => {
       <Stack.Screen name="Add Hunt" component={AddHuntScreen} />
       <Stack.Screen name="Add Place" component={AddPlaceScreen} />
       <Stack.Screen name="Active Hunts" component={ActiveHuntsScreen} />
+      <Stack.Screen name="Hunt Game" component={GameScreen} />
+
       <Stack.Screen
         name="Hunt Results"
         component={HuntResultsScreen}

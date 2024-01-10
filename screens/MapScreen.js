@@ -38,6 +38,7 @@ const MapScreen = ({ navigation }) => {
   const pressHandler = (event) => {
     const latitude = event.nativeEvent.coordinate.latitude;
     const longitude = event.nativeEvent.coordinate.longitude;
+
     setPickedLocation({ latitude, longitude });
   };
 
@@ -47,9 +48,7 @@ const MapScreen = ({ navigation }) => {
       initialRegion={initialRegion}
       onPress={pressHandler}
     >
-      {pickedLocation && (
-        <Marker coordinate={pickedLocation} title="Your picked location" />
-      )}
+      {pickedLocation && <Marker coordinate={pickedLocation} />}
     </MapView>
   );
 };

@@ -12,6 +12,8 @@ const AuthContextProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [gameName, setGameName] = useState("");
   const [activeHunts, setActiveHunts] = useState([]);
+  const [completedHunts, setCompletedHunts] = useState([]);
+  const [update, setUpdate] = useState(false);
   const isAuthenticated = !!token;
   const authenticate = (token) => {
     setToken(token);
@@ -32,6 +34,10 @@ const AuthContextProvider = ({ children }) => {
     setGameName,
     activeHunts,
     setActiveHunts,
+    completedHunts,
+    setCompletedHunts,
+    update,
+    setUpdate,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

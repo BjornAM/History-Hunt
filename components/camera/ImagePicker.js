@@ -1,14 +1,26 @@
 import { View, StyleSheet, Text, Image, Button } from "react-native";
 import { Camera, CameraType } from "expo-camera";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import LoadingOverlay from "../ui/LoadingOverlay";
 import IconButton from "../ui/IconButton";
+import { requestForegroundPermissionsAsync } from "expo-location";
+import { Dimensions } from "react-native";
 
 const ImagePicker = ({ imageHandler }) => {
   const cameraRef = useRef();
   const [photo, setPhoto] = useState();
+  const [isCameraReady, setCameraReady] = useState(false);
   const [cameraPermission, requestCameraPermission] =
     Camera.useCameraPermissions();
+
+  useEffect(() => {
+    (async () => {
+      const { status } = await requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        console.log("Location permission denied");
+      }
+    })();
+  }, []);
 
   if (!cameraPermission) {
     return (
@@ -30,31 +42,21 @@ const ImagePicker = ({ imageHandler }) => {
     );
   }
 
-  const handleCameraIconPress = () => {
-    console.log("Kamera-ikonen trycktes.");
-    takePicture();
+  const handleCameraReady = () => {
+    setCameraReady(true);
   };
 
   const takePicture = async () => {
-    const takenPhoto = await cameraRef.current.takePictureAsync({
-      quality: 0.7,
-      exif: false,
-    });
-    setPhoto(takenPhoto);
-    imageHandler(takenPhoto.uri);
+    if (cameraRef.current && isCameraReady) {
+      const photo = await cameraRef.current.takePictureAsync({
+        quality: 0.7,
+      });
+      setPhoto(photo);
+      imageHandler(photo.uri);
+    }
   };
 
-  let preview = (
-    <Camera style={styles.camera} ref={cameraRef} type={CameraType.back}>
-      <IconButton
-        icon="camera"
-        size={32}
-        color="white"
-        onPress={handleCameraIconPress} //{takePicture.uri}
-      />
-    </Camera>
-  );
-
+  let preview = <Text>No photo</Text>;
   if (photo) {
     preview = (
       <View style={styles.preview}>
@@ -65,10 +67,25 @@ const ImagePicker = ({ imageHandler }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.preview}>{preview}</View>
+      <Camera
+        style={styles.camera}
+        ref={cameraRef}
+        type={CameraType.back}
+        onCameraReady={handleCameraReady}
+      >
+        <IconButton
+          icon="camera"
+          size={32}
+          color="white"
+          onPress={takePicture}
+        />
+      </Camera>
+      {photo && <View style={styles.preview}>{preview}</View>}
     </View>
   );
 };
+
+const { width, height } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   container: {

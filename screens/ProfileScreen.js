@@ -1,53 +1,132 @@
 import { useContext, useEffect, useState } from "react";
-import { StyleSheet, Text, View, Pressable, Image, Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Pressable,
+  Image,
+  Button,
+  ScrollView,
+} from "react-native";
 import { AuthContext } from "../store/AuthContext";
 
 import Trophys from "../components/ui/TrophyIcon";
 import IconButton from "../components/ui/IconButton";
+import { getData } from "../util/database.js";
 
 const ProfileScreen = ({ navigation }) => {
-  const [message, setMessage] = useState(null);
+  const [huntTitles, setHuntTitles] = useState([]);
+  const [allData, setAllData] = useState([]);
 
   const authCtx = useContext(AuthContext);
-  const { gameName, activeHunts } = authCtx;
+  const { gameName, activeHunts, setActiveHunts, completedHunts } = authCtx;
 
-  editProfilePicHandler = () => {};
+  const addActiveHunt = (title) => setActiveHunts([...activeHunts, title]);
+  console.log("activeHunts:", activeHunts);
+
+  useEffect(() => {
+    getData("hunts").then((data) => {
+      const huntTitlesArray = [];
+      const allDataArray = [];
+
+      Object.keys(data).forEach((huntKey, index) => {
+        const huntData = data[huntKey];
+        if (huntData.title) {
+          huntTitlesArray.push(huntData.title);
+          allDataArray.push(huntData);
+        }
+      });
+      setAllData(allDataArray);
+      setHuntTitles(huntTitlesArray);
+    });
+  }, [setAllData, activeHunts, completedHunts]);
+
+  const ActiveHunts = () => {
+    return (
+      <View>
+        {activeHunts.map((title, index) => (
+          <View key={index} style={styles.hunts}>
+            <Text
+              onPress={() => {
+                navigateToHunt(index);
+              }}
+              style={styles.title}
+            >
+              {title}
+            </Text>
+          </View>
+        ))}
+      </View>
+    );
+  };
+
+  const PlannedHunts = () => {
+    const plannedHunts = huntTitles.filter(
+      (title) => !activeHunts.includes(title) && !completedHunts.includes(title)
+    );
+
+    return (
+      <View>
+        {plannedHunts.map((title, index) => (
+          <View key={index} style={styles.hunts}>
+            <Text
+              onPress={() => {
+                navigateToHunt(index);
+                addActiveHunt(title);
+              }}
+              style={styles.title}
+            >
+              {title}
+            </Text>
+          </View>
+        ))}
+      </View>
+    );
+  };
+
+  const CompletedHunts = () => {
+    return (
+      <View>
+        {completedHunts.map((title, index) => (
+          <View key={index} style={styles.hunts}>
+            <Text style={styles.title}>{title}</Text>
+          </View>
+        ))}
+        <View style={styles.medalsContainer}>
+          <Trophys />
+          {/* Bygga funktion för att trophys ska bli ifyllda när Hunts är avklarade. "trophy-filled" Ionicons har både tomma och ifyllda ikoner*/}
+        </View>
+      </View>
+    );
+  };
+
+  const navigateToCreateHunt = () => {
+    navigation.navigate("Create Hunt");
+  };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.profileContainer}>
         <Image
           source={require("../images/bjorn.jpg")}
           style={styles.profileImage}
         />
-        <IconButton icon={"pencil"} size={12} onPress={editProfilePicHandler} />
-
+        <IconButton icon={"pencil"} size={12} onPress={editProfileImgHandler} />
         <Text style={styles.gameName}>{gameName}</Text>
       </View>
-      <Pressable onPress={() => handleActiveHuntsPress()}>
-        <Text style={styles.text}>Active Hunts:</Text>
-        <Text>Bygga funktion för Hunts som andra bjuder in till</Text>
-        <Text>Hunt 2</Text>
-        <Text>Hunt 3</Text>
-      </Pressable>
-
-      <Pressable onPress={() => handlePlannedHuntsPress()}>
-        <Text style={styles.text}>Planned Hunts:</Text>
-        <Text>Här ska byggas funktion för egengjorda Hunts att synas</Text>
-        <Text>Hunt B</Text>
-        <Text>Hunt C</Text>
-      </Pressable>
-      <Button
-        style={styles.button}
-        title="Create Hunt"
-        onPress={() => handleCreateHuntPress()}
-      />
-      <View style={styles.medalsContainer}>
-        <Text style={styles.text}>Medals:</Text>
-        <Trophys />
-        {/* Bygga funktion för att trophys ska bli ifyllda när Hunts är avklarade. "trophy-filled" Ionicons har både tomma och ifyllda ikoner*/}
+      <View>
+        <Button
+          onPress={() => navigateToCreateHunt()}
+          title="Create Hunt"
+        ></Button>
+        <Text style={styles.title}>Planned Hunts</Text>
+        <PlannedHunts />
+        <Text style={styles.title}>Active Hunts</Text>
+        <ActiveHunts />
+        <Text style={styles.title}>Completed Hunts</Text>
+        <CompletedHunts />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

@@ -1,7 +1,8 @@
 import { View, Image, Pressable, Text, StyleSheet } from "react-native";
+import { createLocationUrl } from "../../util/location";
 
 const PlaceItem = ({ place, pressHandler }) => {
-  console.log("place item", place);
+  // console.log("place item", place);
   return (
     <Pressable
       style={({ pressed }) => [styles.container, pressed && styles.pressed]}
@@ -9,9 +10,14 @@ const PlaceItem = ({ place, pressHandler }) => {
     >
       <View>
         <Image style={styles.image} source={{ uri: place.imageUri }} />
+        <Image
+          style={styles.preview}
+          source={{ uri: createLocationUrl(place.location) }}
+        />
         <View style={styles.info}>
+          {/* <Text>{createLocationUrl(place.location)}</Text> */}
           <Text style={styles.title}>{place.title}</Text>
-          {/* <Text style={styles.address}>{place.address}</Text> */}
+          <Text style={styles.address}>{place.address}</Text>
         </View>
       </View>
     </Pressable>
@@ -38,6 +44,14 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 4,
     borderTopLeftRadius: 4,
     height: 100,
+  },
+  preview: {
+    width: "100%",
+    height: 175,
+    backgroundColor: "#3489eb",
+    marginTop: 5,
+    justifyContent: "center",
+    alignItems: "center",
   },
   info: {
     flex: 2,

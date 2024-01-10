@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { View, Text, StyleSheet, TextInput, Button } from "react-native";
 
-const CreateHuntScreen = ({ navigation }) => {
+import { AuthContext } from "../store/AuthContext.js";
+
+const CreateHuntScreen = ({ navigation, route }) => {
   const [huntLengthInput, setHuntLengthInput] = useState("");
   const [huntNameInput, setHuntNameInput] = useState("");
 
   const handleContinuePress = () => {
-    navigation.navigate("Plan the Hunt", {
+    navigation.navigate("Add Place", {
       huntLengthInput,
       huntNameInput,
     });

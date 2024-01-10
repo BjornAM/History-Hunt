@@ -1,23 +1,47 @@
 import axios from "axios";
 import { useContext } from "react";
 import { AuthContext } from "../store/AuthContext";
-import Config from "react-native-config";
 
-ROOT_URL = Config.ROOT_URL;
+const url =
+  "https://historyhunt-ac39f-default-rtdb.europe-west1.firebasedatabase.app";
 
-export const storeData = () => {
-  axios.post(`${rootUrl}/data.json, value`);
-  // 1. data kan behöva fyllas i parentesen för vad som ska postas till firebase.
-  // 2. filnamn behöva tillkomma ex. axios.post(`${rootUrl}/data.json`, data);
-  // 3. Infoga sedan komponenten ex. {storeData} i den filen och ex. storeData() i den funktionen som hanterar den data som ska sparas eller hämtas.
+export const storeHunt = (places) => {
+  // const jsonData = JSON.stringify(huntTitle);
+
+  axios
+    .post(`${url}/hunts.json`, places)
+    .then((response) => {
+      console.log("Success:", response.data);
+    })
+    .catch((error) => {
+      console.error("Error:", error.response.data);
+    });
 };
 
-export const getData = async () => {
-  const response = await axios.get(`${rootUrl}/data.json`);
-  console.log(response.data);
-  // Ex. på omformatering av hämtad data:
-  // for (const 2 in response.data)
-  // { const amount = response.data[key].amount; data.push({}) }
+export const getHunts = async () => {
+  axios.get(`${url}/hunts.json`);
 };
 
-// 1. Datan som hämtas kan behöva formateras om. Kolla console.log(response.data) för att veta hur svaret ser ut.
+// export const addNewData = (location, value, token) => {
+//   console.log(token);
+//   fetch(url + `${location}.json?auth=` + token, {
+//     method: "POST",
+//     body: JSON.stringify(value),
+//   }).then((resp) => {
+//     console.log(resp.status);
+//   });
+// };
+
+export const getData = async (location) => {
+  const resp = await fetch(url + `${location}.json/`);
+  const data = await resp.json();
+  return data;
+};
+
+// export const addData = (location, key, value) => {
+//   const authCtx = useContext(AuthContext);
+//   fetch(url + `${location}/${key}.json/?auth=` + authCtx.token, {
+//     method: "PUT",
+//     body: JSON.stringify(value),
+//   }).then((resp) => {});
+// };

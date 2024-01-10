@@ -33,13 +33,19 @@ const AuthContent = ({ isLogin, onAuthenticate }) => {
     const passwordIsValid = password.length > 6;
     const emailsAreEqual = email === confirmEmail;
     const passwordsAreEqual = password === confirmPassword;
+    console.log("----->", {
+      email,
+      emailIsValid,
+      passwordIsValid,
+      passwordsAreEqual,
+    });
 
     if (
       !emailIsValid ||
       !passwordIsValid ||
       (!isLogin && (!emailsAreEqual || !passwordsAreEqual))
     ) {
-      Alert.alert("Invalid input", "Please check your entered credentials.");
+      Alert.alert("Invalid input");
       setCredentialsInvalid({
         email: !emailIsValid,
         confirmEmail: !emailIsValid || !emailsAreEqual,
