@@ -26,6 +26,8 @@ const AuthContextProvider = ({ children }) => {
   const logout = () => {
     setToken(null);
     AsyncStorage.removeItem("appToken");
+    setActiveHunts([]);
+    setCompletedHunts([]);
   };
 
   const value = {

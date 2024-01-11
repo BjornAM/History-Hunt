@@ -45,7 +45,6 @@ const GameMap = ({ navigation, quitGame, gameLocations, title }) => {
     const [image, setImage] = useState();
     const imageHandler = (uri) => {
       setImage(uri);
-      console.log("imageHandler", uri);
     };
 
     const previewPhotoMode = () => {

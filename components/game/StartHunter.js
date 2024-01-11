@@ -2,7 +2,6 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import { createLocationUrl, getReadableAddress } from "../../util/location.js";
 
 import Button from "../ui/Button";
-import { Colors } from "../../constants/styles";
 
 const StartHunter = ({ startGame, firstLocation }) => {
   return (
@@ -24,7 +23,7 @@ const styles = StyleSheet.create({
   container: {
     padding: 16,
     borderBottomWidth: 1,
-    borderBottomColor: Colors.primary800,
+    borderBottomColor: "black",
   },
   title: {
     fontSize: 18,
