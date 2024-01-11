@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import { View, TextInput, StyleSheet, Text } from "react-native";
 import PlacesList from "../components/places/PlacesList";
 import Button from "../components/ui/Button";
-import { addNewData, storeHunt } from "../util/database";
+import { addNewData } from "../util/database";
 
 import { AuthContext } from "../store/AuthContext";
 
@@ -24,14 +24,12 @@ const HuntResultsScreen = ({ navigation, route }) => {
 
     const placesWithoutImageUri = places.map((place) => {
       const { imageUri, ...placesWithoutImageUri } = place;
+      console.log("Places without ImageUri:", placesWithoutImageUri);
       return placesWithoutImageUri;
     });
-    console.log("Places without image URI:", placesWithoutImageUri);
-
     const postData = { title: huntTitle, places: placesWithoutImageUri };
-    console.log("Post data:", postData);
-
-    storeHunt("hunts", authCtx.postData);
+    console.log("postData:", postData);
+    addNewData("hunts", postData);
     setPlaces([]);
     setHuntTitle("");
 

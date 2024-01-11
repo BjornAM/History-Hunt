@@ -21,6 +21,8 @@ const ProfileScreen = ({ navigation }) => {
   const authCtx = useContext(AuthContext);
   const { gameName, activeHunts, setActiveHunts, completedHunts } = authCtx;
 
+  editProfileImgHandler = () => {};
+
   const addActiveHunt = (title) => setActiveHunts([...activeHunts, title]);
   console.log("activeHunts:", activeHunts);
 
