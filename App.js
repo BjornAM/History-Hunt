@@ -96,7 +96,7 @@ const Navigation = () => {
     const fetchToken = async () => {
       const token = await AsyncStorage.getItem("appToken");
       if (token) {
-        authCtx.authenticate(token);
+        authCtx.authenticate(JSON.parse(token));
       }
     };
     fetchToken();

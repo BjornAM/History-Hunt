@@ -5,9 +5,8 @@ import { AuthContext } from "../store/AuthContext";
 const url =
   "https://history-hunt-29859-default-rtdb.europe-west1.firebasedatabase.app/";
 
-export const addNewData = (location, value, token) => {
-  console.log(token);
-  fetch(url + `${location}.json`, {
+export const addNewData = (location, value, email) => {
+  fetch(url + `${location}-${email}.json`, {
     method: "POST",
     body: JSON.stringify(value),
   }).then((resp) => {
@@ -15,10 +14,12 @@ export const addNewData = (location, value, token) => {
   });
 };
 
-export const getData = async (location) => {
-  const resp = await fetch(url + `${location}.json/`);
+export const getData = async (location, email) => {
+  if (!email) return [];
+  console.log("email:", email);
+  const resp = await fetch(url + `${location}-${email}.json/`);
   const data = await resp.json();
-  return data;
+  return data || [];
 };
 
 // export const addData = (location, key, value) => {

@@ -11,13 +11,14 @@ export const AuthContext = createContext({
 const AuthContextProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [gameName, setGameName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
   const [activeHunts, setActiveHunts] = useState([]);
   const [completedHunts, setCompletedHunts] = useState([]);
   const [update, setUpdate] = useState(false);
   const isAuthenticated = !!token;
   const authenticate = (token) => {
     setToken(token);
-    AsyncStorage.setItem("appToken", token);
+    AsyncStorage.setItem("appToken", JSON.stringify(token));
   };
 
   const logout = () => {
@@ -32,6 +33,8 @@ const AuthContextProvider = ({ children }) => {
     logout,
     gameName,
     setGameName,
+    userEmail,
+    setUserEmail,
     activeHunts,
     setActiveHunts,
     completedHunts,

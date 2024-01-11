@@ -19,7 +19,8 @@ const ProfileScreen = ({ navigation }) => {
   const [allData, setAllData] = useState([]);
 
   const authCtx = useContext(AuthContext);
-  const { gameName, activeHunts, setActiveHunts, completedHunts } = authCtx;
+  const { gameName, activeHunts, setActiveHunts, completedHunts, userEmail } =
+    authCtx;
 
   editProfileImgHandler = () => {};
 
@@ -27,7 +28,7 @@ const ProfileScreen = ({ navigation }) => {
   console.log("activeHunts:", activeHunts);
 
   useEffect(() => {
-    getData("hunts").then((data) => {
+    getData("hunts", userEmail).then((data) => {
       const huntTitlesArray = [];
       const allDataArray = [];
 
@@ -126,6 +127,7 @@ const ProfileScreen = ({ navigation }) => {
           onPress={() => navigateToCreateHunt()}
           title="Create Hunt"
         ></Button>
+
         <View style={styles.allHunts}>
           <Text style={styles.title}>PLANNED HUNTS</Text>
           <PlannedHunts />

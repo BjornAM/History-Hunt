@@ -28,7 +28,7 @@ const HuntResultsScreen = ({ navigation, route }) => {
       return placesWithoutImageUri;
     });
     const postData = { title: huntTitle, places: placesWithoutImageUri };
-    console.log("postData:", postData);
+    console.log("postData:", postData, authCtx.userEmail);
     addNewData("hunts", postData);
     setPlaces([]);
     setHuntTitle("");

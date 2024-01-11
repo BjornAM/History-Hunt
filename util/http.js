@@ -32,5 +32,5 @@ export const signupUser = (email, password, username) => {
 };
 
 export const signinUser = (email, password) => {
-  return authenticate("signInWithPassword", email, password);
+  return authenticate("signInWithPassword", username, email, password);
 };

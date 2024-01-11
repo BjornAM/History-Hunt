@@ -18,6 +18,7 @@ const SignupScreen = () => {
 
       authCtx.authenticate(token);
       authCtx.setGameName(data.username);
+      authCtx.setUserEmail(email);
     } catch (error) {
       console.log(error);
       alert("Wrong credentials");

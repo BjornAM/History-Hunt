@@ -123,10 +123,8 @@ const GameMap = ({ navigation, quitGame, gameLocations, title }) => {
 
   const Completed = () => {
     return (
-      <View>
-        <Text style={styles.text}>
-          Congratulations you have completed the hunt!
-        </Text>
+      <View style={styles.completedContainer}>
+        <Text style={styles.text}>Hunt Completed! Congrats!</Text>
         <Button style={styles.button} onPress={completeHandler}>
           Complete
         </Button>
@@ -149,6 +147,9 @@ const GameMap = ({ navigation, quitGame, gameLocations, title }) => {
 export default GameMap;
 
 const styles = StyleSheet.create({
+  completedContainer: {
+    marginTop: 150,
+  },
   map: {
     width: "100%",
     height: "100%",
@@ -163,6 +164,8 @@ const styles = StyleSheet.create({
     width: 130,
   },
   text: {
+    alignContent: "center",
+    alignItems: "center",
     marginVertical: 40,
     margin: 20,
     fontSize: 20,
