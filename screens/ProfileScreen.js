@@ -43,6 +43,11 @@ const ProfileScreen = ({ navigation }) => {
     });
   }, [setAllData, activeHunts, completedHunts]);
 
+  const navigateToHunt = (index) => {
+    const huntData = allData[index];
+    navigation.navigate("Hunt Game", { huntData });
+  };
+
   const ActiveHunts = () => {
     return (
       <View>
@@ -121,12 +126,14 @@ const ProfileScreen = ({ navigation }) => {
           onPress={() => navigateToCreateHunt()}
           title="Create Hunt"
         ></Button>
-        <Text style={styles.title}>Planned Hunts</Text>
-        <PlannedHunts />
-        <Text style={styles.title}>Active Hunts</Text>
-        <ActiveHunts />
-        <Text style={styles.title}>Completed Hunts</Text>
-        <CompletedHunts />
+        <View style={styles.allHunts}>
+          <Text style={styles.title}>PLANNED HUNTS</Text>
+          <PlannedHunts />
+          <Text style={styles.title}>ACTIVE HUNTS</Text>
+          <ActiveHunts />
+          <Text style={styles.title}>COMPLETED HUNTS</Text>
+          <CompletedHunts />
+        </View>
       </View>
     </ScrollView>
   );
@@ -146,6 +153,10 @@ const styles = StyleSheet.create({
   },
   gameName: {
     fontSize: 15,
+  },
+  title: {
+    marginBottom: 10,
+    fontWeight: "bold",
   },
   medalsContainer: {
     marginTop: 50,
