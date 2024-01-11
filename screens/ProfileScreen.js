@@ -42,7 +42,7 @@ const ProfileScreen = ({ navigation }) => {
       setAllData(allDataArray);
       setHuntTitles(huntTitlesArray);
     });
-  }, [setAllData, activeHunts, completedHunts]);
+  }, [activeHunts, completedHunts, userEmail]);
 
   const navigateToHunt = (index) => {
     const huntData = allData[index];
