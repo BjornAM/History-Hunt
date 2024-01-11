@@ -16,9 +16,11 @@ const AuthContextProvider = ({ children }) => {
   const [completedHunts, setCompletedHunts] = useState([]);
   const [update, setUpdate] = useState(false);
   const isAuthenticated = !!token;
-  const authenticate = (token) => {
+  const authenticate = async (token) => {
     setToken(token);
     AsyncStorage.setItem("appToken", JSON.stringify(token));
+    const gameName = await AsyncStorage.getItem("gameName");
+    setGameName(gameName);
   };
 
   const logout = () => {

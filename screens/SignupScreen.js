@@ -4,6 +4,7 @@ import AuthContent from "../components/Auth/AuthContent";
 import LoadingOverlay from "../components/ui/LoadingOverlay";
 import * as http from "../util/http";
 import { AuthContext } from "../store/AuthContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SignupScreen = () => {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
@@ -18,7 +19,8 @@ const SignupScreen = () => {
 
       authCtx.authenticate(token);
       authCtx.setGameName(data.username);
-      authCtx.setUserEmail(email);
+
+      await AsyncStorage.setItem("gameName", username);
     } catch (error) {
       console.log(error);
       alert("Wrong credentials");

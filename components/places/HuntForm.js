@@ -34,7 +34,7 @@ const HuntForm = ({
       huntName: huntNameInput,
       location: pickedLocation,
     };
-    addNewData(location, dataToSave, authCtx.userEmail);
+    addNewData(location, dataToSave, authCtx.gameName);
     navigation.navigate("Planned Hunts", {
       dataToPass: dataToSave,
     });

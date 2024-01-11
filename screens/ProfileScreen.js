@@ -28,7 +28,7 @@ const ProfileScreen = ({ navigation }) => {
   console.log("activeHunts:", activeHunts);
 
   useEffect(() => {
-    getData("hunts", userEmail).then((data) => {
+    getData("hunts", gameName).then((data) => {
       const huntTitlesArray = [];
       const allDataArray = [];
 
@@ -42,7 +42,7 @@ const ProfileScreen = ({ navigation }) => {
       setAllData(allDataArray);
       setHuntTitles(huntTitlesArray);
     });
-  }, [activeHunts, completedHunts, userEmail]);
+  }, [activeHunts, completedHunts, gameName]);
 
   const navigateToHunt = (index) => {
     const huntData = allData[index];

@@ -29,7 +29,7 @@ const HuntResultsScreen = ({ navigation, route }) => {
     });
     const postData = { title: huntTitle, places: placesWithoutImageUri };
     console.log("postData:", postData, authCtx.userEmail);
-    addNewData("hunts", postData);
+    addNewData("hunts", postData, authCtx.gameName);
     setPlaces([]);
     setHuntTitle("");
 
